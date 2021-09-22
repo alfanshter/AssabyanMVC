@@ -22,8 +22,28 @@ $id_siswa = 0;
                                     </button>
                                 </div>
                             </div>
+
                             <div class="container">
-                                <table class="table table-stripped" border="2">
+                                <center>
+                                    <form action="<?= base_url; ?>/detailguru/ProsesEditFoto" enctype="multipart/form-data" method="POST">
+                                        <input type="hidden" value="<?= $data['detailguru']['foto_guru']; ?>" name="fotohapus" id="fotohapus">
+                                        <input type="hidden" value="<?= $data['detailguru']['id_guru']; ?>" name="id_guru" id="id_guru">
+
+                                        <img id="foto_guru" src="<?= base_url; ?>/img/<?= $data['detailguru']['foto_guru']; ?>" width="300" height="300" alt=""><br>
+                                        <div class="form-group">
+                                            <label for="btn_editfoto" class="btn btn-warning">Pilih Foto</label>
+                                            <input id="btn_editfoto" name="btn_editfoto" type="file" class="form-control-file" accept="image/*" onchange="loadFile(event)">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <button id="btn_save" name="btn_save" type="submit" class="btn btn-success">Edit Foto</button>
+                                        </div>
+
+
+                                    </form>
+                                </center><br>
+
+                                <table class=" table table-stripped" border="2">
                                     <thead>
                                         <tr>
 
@@ -65,7 +85,6 @@ $id_siswa = 0;
                                             <td style="text-align: center;"> <?php echo $data['detailguru']['alamat_lembaga'];  ?></td>
                                             <td style="text-align: center;"> <?php echo $data['detailguru']['alamat_rumah'];  ?></td>
                                             <td style="text-align: center;"> <?php echo $data['detailguru']['pendidikan_guru'];  ?></td>
-
                                             <!-- <td>
 
                                                         <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
@@ -175,3 +194,19 @@ $id_siswa = 0;
         </div>
     </div>
 </div>
+
+<script>
+    $("#btn_save").hide();
+
+    var loadFile = function(event) {
+        var image = document.getElementById('foto_guru');
+        image.src = URL.createObjectURL(event.target.files[0]);
+        $("#btn_save").show();
+    };
+
+    // $(document).ready(function() {
+    //     $("#btn_editfoto").click(function() {
+    //         $('img#foto_guru').attr('src', '/path/to/image');
+    //     });
+    // });
+</script>

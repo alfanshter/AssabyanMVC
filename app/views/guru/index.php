@@ -38,6 +38,7 @@ $id_siswa = 0;
                                             <th scope="col">No</th>
                                             <th scope="col">Lembaga</th>
                                             <th scope="col">Nama</th>
+                                            <th scope="col">Foto</th>
                                             <th scope="col">Aksi</th>
                                         </tr>
                                     </thead>
@@ -53,6 +54,8 @@ $id_siswa = 0;
                                                     <th scope="row"><?= $i; ?></th>
                                                     <td><?php echo $guru['nama_lembaga'] ?></td>
                                                     <td><?php echo $guru['nama_guru'] ?></td>
+                                                    <td> <img src="<?= base_url; ?>/img/<?= $guru['foto_guru']; ?>" height="100" width="100">
+                                                    </td>
                                                     <td>
 
                                                         <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
@@ -151,6 +154,11 @@ $id_siswa = 0;
                     <div class="input-group input-group-sm mb-3">
                         <span class="input-group-text" id="inputGroup-sizing-sm">Pendidikan Guru</span>
                         <input required type="text" id="pendidikan_guru" name="pendidikan_guru" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                    </div>
+
+                    <div class="input-group input-group-sm mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">Foto Guru</span>
+                        <input required type="file" id="foto_guru" name="foto_guru" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
                     </div>
 
 

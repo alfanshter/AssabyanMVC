@@ -45,7 +45,8 @@ berdoa = :berdoa,
           bernyanyi =:bernyanyi, 
           senam_irama =:senam_irama,
            ikrar_bersama =:ikrar_bersama, 
-           bermain=:bermain 
+           bermain=:bermain,
+           komentar_nilai = :komentar_nilai
             WHERE id_nilai = :id_nilai";
 
         $this->db->query($query);
@@ -56,6 +57,7 @@ berdoa = :berdoa,
         $this->db->bind('senam_irama', $data['senam_irama']);
         $this->db->bind('ikrar_bersama', $data['ikrar_bersama']);
         $this->db->bind('bermain', $data['bermain']);
+        $this->db->bind('komentar_nilai', $data['komentar_nilai']);
         $this->db->bind('id_nilai', $data['id_nilai']);
         $this->db->execute();
 
@@ -65,8 +67,8 @@ berdoa = :berdoa,
 
     public function tambahNilai($data)
     {
-        $query = "INSERT INTO tb_nilai (nik_siswa,bermain,ikrar_bersama,senam_irama,bernyanyi,berdoa,pijakan_sebelum_bermain,pijakan_setelah_bermain,tanggal_nilai)
-         VALUES(:nik_siswa,:bermain,:ikrar_bersama,:senam_irama,:bernyanyi,:berdoa,:pijakan_sebelum_bermain,:pijakan_setelah_bermain,:tanggal_nilai)";
+        $query = "INSERT INTO tb_nilai (nik_siswa,bermain,ikrar_bersama,senam_irama,bernyanyi,berdoa,pijakan_sebelum_bermain,pijakan_setelah_bermain,komentar_nilai,tanggal_nilai)
+         VALUES(:nik_siswa,:bermain,:ikrar_bersama,:senam_irama,:bernyanyi,:berdoa,:pijakan_sebelum_bermain,:pijakan_setelah_bermain,:komentar_nilai,:tanggal_nilai)";
         $this->db->query($query);
         $this->db->bind('nik_siswa', $data['nik_siswa']);
         $this->db->bind('bermain', $data['bermain']);
@@ -77,6 +79,7 @@ berdoa = :berdoa,
         $this->db->bind('pijakan_sebelum_bermain', $data['pijakan_sebelum_bermain']);
         $this->db->bind('pijakan_setelah_bermain', $data['pijakan_setelah_bermain']);
         $this->db->bind('tanggal_nilai', $data['tanggal_nilai']);
+        $this->db->bind('komentar_nilai', $data['komentar_nilai']);
         $this->db->execute();
 
         return $this->db->rowCount();

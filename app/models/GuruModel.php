@@ -25,26 +25,37 @@ class GuruModel
     }
 
 
-    public function tambahGuru($data)
+    public function tambahGuru($data, $foto)
     {
-        $query = "INSERT INTO tb_guru (nama_guru,nama_lembaga,ttl_guru,ktp_guru,tmt,tahun_kerja,bulan_kerja,status_guru,alamat_rumah,alamat_lembaga,pendidikan_guru,tempatlahir_guru)
-         VALUES(:nama_guru,:nama_lembaga,:ttl_guru,:ktp_guru,:tmt,:tahun_kerja,:bulan_kerja,:status_guru,:alamat_rumah,:alamat_lembaga,:pendidikan_guru,:tempatlahir_guru)";
-        $this->db->query($query);
-        $this->db->bind('nama_guru', $data['nama_guru']);
-        $this->db->bind('nama_lembaga', $data['nama_lembaga']);
-        $this->db->bind('ttl_guru', $data['ttl_guru']);
-        $this->db->bind('ktp_guru', $data['ktp_guru']);
-        $this->db->bind('tmt', $data['tmt']);
-        $this->db->bind('tahun_kerja', $data['tahun_kerja']);
-        $this->db->bind('bulan_kerja', $data['bulan_kerja']);
-        $this->db->bind('status_guru', $data['status_guru']);
-        $this->db->bind('alamat_rumah', $data['alamat_rumah']);
-        $this->db->bind('alamat_lembaga', $data['alamat_lembaga']);
-        $this->db->bind('pendidikan_guru', $data['pendidikan_guru']);
-        $this->db->bind('tempatlahir_guru', $data['tempatlahir_guru']);
-        $this->db->execute();
+        $fotoguru = $foto['foto_guru']['name'];
 
-        return $this->db->rowCount();
+        $tmpfotosiswa = $foto['foto_guru']['tmp_name'];
+
+        $fotogurubaru = date('dmYHis') . $fotoguru;
+        // Set path folder tempat menyimpan fotonya
+        $pathfotoguru = "img/" . $fotogurubaru;
+
+        if (move_uploaded_file($tmpfotosiswa, $pathfotoguru)) {
+            $query = "INSERT INTO tb_guru (nama_guru,nama_lembaga,ttl_guru,ktp_guru,tmt,tahun_kerja,bulan_kerja,status_guru,alamat_rumah,alamat_lembaga,pendidikan_guru,tempatlahir_guru,foto_guru)
+         VALUES(:nama_guru,:nama_lembaga,:ttl_guru,:ktp_guru,:tmt,:tahun_kerja,:bulan_kerja,:status_guru,:alamat_rumah,:alamat_lembaga,:pendidikan_guru,:tempatlahir_guru,:foto_guru)";
+            $this->db->query($query);
+            $this->db->bind('nama_guru', $data['nama_guru']);
+            $this->db->bind('nama_lembaga', $data['nama_lembaga']);
+            $this->db->bind('ttl_guru', $data['ttl_guru']);
+            $this->db->bind('ktp_guru', $data['ktp_guru']);
+            $this->db->bind('tmt', $data['tmt']);
+            $this->db->bind('tahun_kerja', $data['tahun_kerja']);
+            $this->db->bind('bulan_kerja', $data['bulan_kerja']);
+            $this->db->bind('status_guru', $data['status_guru']);
+            $this->db->bind('alamat_rumah', $data['alamat_rumah']);
+            $this->db->bind('alamat_lembaga', $data['alamat_lembaga']);
+            $this->db->bind('pendidikan_guru', $data['pendidikan_guru']);
+            $this->db->bind('tempatlahir_guru', $data['tempatlahir_guru']);
+            $this->db->bind('foto_guru', $fotogurubaru);
+            $this->db->execute();
+
+            return $this->db->rowCount();
+        }
     }
 
     public function editGuru($data)
@@ -102,5 +113,39 @@ class GuruModel
         $this->db->execute();
 
         return $this->db->rowCount();
+    }
+
+    public function editfoto($foto, $data)
+    {
+
+
+        $fotoguru = $foto['btn_editfoto']['name'];
+
+        $tmpfotoguru = $foto['btn_editfoto']['tmp_name'];
+
+        $fotogurubaru = date('dmYHis') . $fotoguru;
+        // Set path folder tempat menyimpan fotonya
+        $pathfotoguru = "img/" . $fotogurubaru;
+
+        // $tempat_foto = 'img/' . $data['fotohapus'];
+        // $file = glob("img/" . $data['fotohapus']);
+        // $asd = opendir(dirname(realpath(__FILE__)) . '/img/');
+        // var_dump($asd);
+        // unlink($file);
+
+        var_dump($data['id_guru']);
+        if (move_uploaded_file($tmpfotoguru, $pathfotoguru)) {
+
+            $query = "UPDATE tb_guru  
+                SET
+                 foto_guru= :foto_guru
+                 WHERE id_guru = :id_guru";
+            $this->db->query($query);
+            $this->db->bind('foto_guru', $fotogurubaru);
+            $this->db->bind('id_guru',  $data['id_guru']);
+            $this->db->execute();
+
+            return $this->db->rowCount();
+        }
     }
 }

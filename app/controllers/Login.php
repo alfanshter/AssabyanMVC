@@ -32,8 +32,9 @@ class Login extends Controller
     {
         session_start();
         session_destroy();
-        header('location:' . base_url . '/admin');
+        header('location:' . base_url . '/home');
     }
+
 
     //mulai pendaftaran siswa
 }

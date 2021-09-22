@@ -364,7 +364,10 @@ The above copyright notice and this permission notice shall be included in all c
             Flasher::Message();
             ?>
             <!-- Icon -->
+            <a href="<?= base_url ?>"><img src="<?= base_url; ?>/img/silang.png" /></a>
+
             <div class="fadeIn first">
+                <!-- Icon -->
                 <img src="https://img.icons8.com/cotton/128/000000/user-male--v1.png" />
             </div>
 

@@ -17,9 +17,16 @@ if (!empty($_SESSION['role'])) {
 } else {
     $role = $_SESSION['role'] = 0;
 }
+
+if ($role == 2) {
+    $foto = $data['biodata'] = $this->model('SiswaModel')->getbiodata($_SESSION['id_siswa']);
+}
+
 ?>
 
 <head>
+
+
     <meta charset="utf-8" />
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -38,12 +45,10 @@ if (!empty($_SESSION['role'])) {
     <link href="<?= base_url; ?>/assets/demo/demo.css'" rel="stylesheet" />
 
     <script src="<?= base_url; ?>/assets/js/jquery.min.js"></script>
-    <script src="<?= base_url; ?>/assets/js/jquery-3.4.1.js"></script>
 
     <style type="text/css">
 
     </style>
-
 
 </head>
 
@@ -57,9 +62,50 @@ if (!empty($_SESSION['role'])) {
 
         Tip 2: you can also add an image using data-image tag
     -->
-            <div class="logo"><a href="<?= base_url; ?>/home" class="simple-text logo-normal">
-                    PAUD ASSBIYAN
-                </a></div>
+            <?php
+            if ($role == 0) {
+            ?>
+                <div class="logo"><a href="<?= base_url; ?>/home" class="simple-text logo-normal">
+                        PAUD ASSIBYAN
+                    </a></div>
+
+            <?php     } ?>
+
+            <?php
+            if ($role == 1) {
+            ?>
+                <div class="logo"><a href="<?= base_url; ?>/home" class="simple-text logo-normal">
+                        PAUD ASSIBYAN
+                    </a></div>
+
+            <?php     } ?>
+
+            <?php
+            if ($role == 2) {
+            ?>
+                <div class="logo"><a href="<?= base_url; ?>/siswa" class="simple-text logo-normal">
+                        PAUD ASSIBYAN
+                    </a>
+                </div>
+                <div class="sidebar-wrapper">
+                    <ul class="nav">
+
+                        <li class="nav-item ">
+                            <a class="nav-link" href="<?= base_url; ?>/siswa">
+                                <p>Dashboard</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item ">
+                            <a class="nav-link" href="<?= base_url; ?>/fasilitaspaud">
+                                <p>Fasilitas PAUD</p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            <?php     } ?>
+
+
             <div class="sidebar-wrapper">
                 <ul class="nav">
 
@@ -116,6 +162,12 @@ if (!empty($_SESSION['role'])) {
                             </a>
                         </li>
 
+                        <li class="nav-item ">
+                            <a class="nav-link" href="<?= base_url; ?>/fasilitaspaud">
+                                <p>Fasilitas PAUD</p>
+                            </a>
+                        </li>
+
 
 
                     <?php                     }
@@ -138,13 +190,26 @@ if (!empty($_SESSION['role'])) {
                         <ul class="navbar-nav">
                             <li class="nav-item dropdown">
                                 <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
                                     <i class="material-icons">person</i>
                                     <p class="d-lg-none d-md-block">
                                         Account
                                     </p>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
+                                    <?php
+                                    if ($role == 2) {
+                                    ?>
+                                        <img src="<?= base_url; ?>/img/<?= $foto['foto']; ?>" height="200" width="200">
+
+                                    <?php } ?>
                                     <a class="dropdown-item" href="<?= base_url; ?>/login/logout">Log out</a>
+                                    <?php
+                                    if ($role == 2) {
+                                    ?>
+                                        <a class="dropdown-item" href="<?= base_url; ?>/siswa/editfoto">Edit Foto</a>
+
+                                    <?php } ?>
                                 </div>
                             </li>
                         </ul>

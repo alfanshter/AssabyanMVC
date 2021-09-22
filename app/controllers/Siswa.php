@@ -78,4 +78,22 @@ class Siswa extends Controller
         $this->view('siswa/absen', $data);
         $this->view('templates/footer', $data);
     }
+
+    public function editfoto()
+    {
+        $data['foto'] = $this->model('SiswaModel')->getbiodata($_SESSION['id_siswa']);
+        $data['title'] = 'Halaman Absen Siswa';
+        $this->view('templates/header', $data);
+        $this->view('templates/sidebar', $data);
+        $this->view('siswa/editfoto', $data);
+        $this->view('templates/footer', $data);
+    }
+
+    public function ProsesEditFoto()
+    {
+        if ($this->model('SiswaModel')->editfoto($_FILES) > 0) {
+            Flasher::setMessage('Berhasil', 'diedit', 'success');
+            header('location: ' . base_url . '/siswa/editfoto');
+        }
+    }
 }
